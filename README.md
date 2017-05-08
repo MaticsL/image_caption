@@ -1,6 +1,6 @@
 # Image Caption
 
-This is an simple implementation of `Image Caption` trained on MS COCO dataset.
+This is a simple implementation of `Image Caption` trained on MS COCO dataset.
 
 The project is based on these repos:
 
@@ -72,3 +72,7 @@ Modify `model_path` to checkpoint file you have got and run
 python test.py path/to/test/image.jpg
 ```
 to get the result.
+
+## TODO
+
++ add val data
