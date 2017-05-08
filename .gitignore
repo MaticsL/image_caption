@@ -1,0 +1,12 @@
+*.pyc
+*.swp
+.vscode
+.idea
+__pycache__
+train/images
+train/*.pkl
+train/*.json
+model/inception_log/*
+model/inception_v3_2016_08_28_frozen.pb
+test/*
+weights/*
