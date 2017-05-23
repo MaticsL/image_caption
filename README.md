@@ -39,9 +39,9 @@ Download [COCO 2014 Training images [80K/13GB]](http://msvocds.blob.core.windows
 
 ### prepare anns.csv
 
-The `anns.csv` is a table contains training images' path and their captions. When training, **ONLY** images in `anns.csv` will be used.
+The `anns.csv` is a table contains training images' path and their captions. When training, **ONLY** captions in `anns.csv` will be used.
 
-We provide a default `anns.csv` contains about 56K images. You can generate this file on your own.
+We provide a default `anns.csv` contains about 56K captionss. You can generate this file on your own.
 
 ### extract image features
 

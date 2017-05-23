@@ -1,3 +1,7 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import sys
 import pickle
 
@@ -96,12 +100,22 @@ if __name__ == '__main__':
     n_jobs = 64
     size_per_thread = 64
     mdl_path = 'weights/'
-    img_train = pickle.load(open('train/train_img2048.pkl', 'rb'))
-    anns = csv.reader(open("train/anns.csv"))
 
+    pkl_count = 0
+    img_train = {}
+    while True:
+        pkl_count += 1
+        try:
+            with open('train/train_img2048_%d.pkl' % pkl_count, 'rb') as f:
+                img_train.update(pickle.load(f))
+        except FileNotFoundError:
+            break
+    print('got %d image context vectors' % len(img_train))
+
+    anns = csv.reader(open("train/anns.csv"))
     anns = [row for row in anns if row[1] != 'caption']
     print('got %d training captions' % len(anns))
-    
+
     captions = ['+ ' + row[1] for row in anns]
     captions, word2idx, idx2word, vocab_size = gene_word_caption(captions)
     print('got %d words, saving word translate dict...' % vocab_size)
@@ -127,8 +141,6 @@ if __name__ == '__main__':
     # insert ur version name here
     version = 'v1.0.0'
     batch_num = 70
-    print_summary(model.layers)
-
     hist_loss = []
 
     for i in range(0, 100):

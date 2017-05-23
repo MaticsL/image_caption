@@ -44,19 +44,24 @@ class ImageFeatureExtractor(object):
 if __name__ == '__main__':
     ife = ImageFeatureExtractor('model/inception_v3_2016_08_28_frozen.pb')
     anns = csv.reader(open("train/anns.csv"))
-    count = -1
+    count = 0
     img_2048_dict = {}
     for row in anns:
         try:
-            if count == -1:
-                count += 1
+            if row[1] == 'caption':
                 continue
             image_path = row[2]
             img_2048_dict[int(row[3])] = ife.extract_features(image_path)
             count += 1
             if count % 100 == 0:
                 print('%d finished' % count)
+            if count % 10000 == 0:
+                with open('./train/train_img2048_%d.pkl' % (count / 10000),
+                          'wb') as f:
+                    pickle.dump(img_2048_dict, f)
+                img_2048_dict = {}
         except:
             continue
-    with open('./train/train_img2048.pkl', 'wb') as f:
+    with open('./train/train_img2048_%d.pkl' % (count / 10000 + 1),
+              'wb') as f:
         pickle.dump(img_2048_dict, f)
